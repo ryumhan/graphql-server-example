@@ -22,21 +22,27 @@ const typeDefs = gql`
 const movies = [
   {
     title: "The Awakening",
+    id: "1",
   },
   {
     title: "City of Glass",
+    id: "2",
   },
   {
     title: "타이타닉",
+    id: "3",
   },
   {
     title: "mud",
+    id: "4",
   },
   {
     title: "lala land",
+    id: "5",
   },
   {
     title: "whiplash",
+    id: "6",
   },
 ];
 
