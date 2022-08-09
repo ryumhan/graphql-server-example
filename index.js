@@ -15,7 +15,7 @@ const typeDefs = gql`
   # clients can execute, along with the return type for each. In this
   # case, the "Movies" query returns an array of zero or more Movies (defined above).
   type Query {
-    movies: [Movie]
+    allMovies: [Movie]
   }
 `;
 
@@ -44,7 +44,7 @@ const movies = [
 // schema. This resolver retrieves books from the "books" array above.
 const resolvers = {
   Query: {
-    movies: () => movies,
+    allMovies: () => movies,
   },
 };
 
