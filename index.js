@@ -9,7 +9,6 @@ const typeDefs = gql`
   # This "Movie" type defines the queryable fields for every Movie in our data source.
   type Movie {
     title: String
-    author: String
   }
 
   # The "Query" type is special: it lists all of the available queries that
@@ -23,11 +22,21 @@ const typeDefs = gql`
 const movies = [
   {
     title: "The Awakening",
-    author: "Kate Chopin",
   },
   {
     title: "City of Glass",
-    author: "Paul Auster",
+  },
+  {
+    title: "타이타닉",
+  },
+  {
+    title: "mud",
+  },
+  {
+    title: "lala land",
+  },
+  {
+    title: "whiplash",
   },
 ];
 
