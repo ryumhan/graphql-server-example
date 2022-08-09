@@ -9,6 +9,7 @@ const typeDefs = gql`
   # This "Movie" type defines the queryable fields for every Movie in our data source.
   type Movie {
     title: String
+    id: String
   }
 
   # The "Query" type is special: it lists all of the available queries that
