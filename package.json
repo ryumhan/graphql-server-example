@@ -4,6 +4,10 @@
     "graphql": "^16.5.0"
   },
   "scripts": {
-    "start": "node index.js"
-  }
+    "dev": "nodemon server.js"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.19"
+  },
+  "type": "module"
 }

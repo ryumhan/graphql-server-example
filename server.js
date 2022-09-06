@@ -1,5 +1,4 @@
-const { ApolloServer, gql } = require("apollo-server");
-
+import { ApolloServer, gql } from "apollo-server";
 // A schema is a collection of type definitions (hence "typeDefs")
 // that together define the "shape" of queries that are executed against
 // your data.
@@ -34,15 +33,15 @@ const movies = [
     id: "3",
   },
   {
-    title: "mud",
+    title: "Mud",
     id: "4",
   },
   {
-    title: "lala land",
+    title: "LaLa land",
     id: "5",
   },
   {
-    title: "whiplash",
+    title: "Whiplash",
     id: "6",
   },
 ];
