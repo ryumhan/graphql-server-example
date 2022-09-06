@@ -1,4 +1,8 @@
 import { ApolloServer, gql } from "apollo-server";
+import  {
+  ApolloServerPluginLandingPageLocalDefault
+}  from "apollo-server-core";
+
 // A schema is a collection of type definitions (hence "typeDefs")
 // that together define the "shape" of queries that are executed against
 // your data.
@@ -11,6 +15,9 @@ const typeDefs = gql`
     id: String
   }
 
+  type Tweet{
+    text: String
+  }
   # The "Query" type is special: it lists all of the available queries that
   # clients can execute, along with the return type for each. In this
   # case, the "Movies" query returns an array of zero or more Movies (defined above).
@@ -54,9 +61,6 @@ const resolvers = {
   },
 };
 
-const {
-  ApolloServerPluginLandingPageLocalDefault,
-} = require("apollo-server-core");
 
 // The ApolloServer constructor requires two parameters: your schema
 // definition and your set of resolvers.
