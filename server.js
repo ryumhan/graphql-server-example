@@ -3,29 +3,30 @@ import  {
   ApolloServerPluginLandingPageLocalDefault
 }  from "apollo-server-core";
 
-// A schema is a collection of type definitions (hence "typeDefs")
-// that together define the "shape" of queries that are executed against
-// your data.
-const typeDefs = gql`
-  # Comments in GraphQL strings (such as this one) start with the hash (#) symbol.
-
-  # This "Movie" type defines the queryable fields for every Movie in our data source.
-  type Movie {
-    title: String
-    id: String
+let users =[
+  {
+  id: "1",
+  username: "ryumyunghan",
+  firstName: "myunghan",
+  lastName: "ryu"
+  },
+  {
+    id:"2",
+    firstName: "elon",
+    lastName: "mask"
   }
+];
 
-  type Tweet{
-    text: String
+let tweets =[
+  {
+  id: "1",
+  text: "first one",
+  },
+  {
+    id: "2",
+    text: "second one",
   }
-  # The "Query" type is special: it lists all of the available queries that
-  # clients can execute, along with the return type for each. In this
-  # case, the "Movies" query returns an array of zero or more Movies (defined above).
-  type Query {
-    allMovies: [Movie]
-  }
-`;
-
+];
 const movies = [
   {
     title: "The Awakening",
@@ -53,12 +54,82 @@ const movies = [
   },
 ];
 
+
+// A schema is a collection of type definitions (hence "typeDefs")
+// that together define the "shape" of queries that are executed against
+// your data.
+const typeDefs = gql`
+  type User {
+    username: String
+    firstName: String!
+    lastName: String!
+    fullName:String!
+    id: ID!
+  }
+
+  type Movie {
+    title: String
+    id: String
+  }
+
+  type Tweet{
+    text: String!
+    id:ID!
+    author: User
+  }
+
+  type Query {
+    allUsers:[User]
+    allMovies: [ Movie ]
+    allTweets: [ Tweet!]!
+    tweet(id: ID!): Tweet
+    ping:String!
+  }
+
+  type Mutation {
+    postTweet(text:String!, userId:ID!) : Tweet!
+    deleteTweet(id:ID!): Boolean!
+  }
+`;
+
 // Resolvers define the technique for fetching the types defined in the
 // schema. This resolver retrieves books from the "books" array above.
 const resolvers = {
   Query: {
     allMovies: () => movies,
+    allTweets: ()=> tweets,
+    tweet(_, {id}){
+      return tweets.find((tweet)=> tweet.id === id);
+    },
+    ping(){
+      return "pong";
+    },
+    allUsers:() =>{
+      console.log("allUsers console log");
+      return users;
+    },
+  },Mutation:{
+    postTweet(_, {text, userId}){
+      const newTweet = {
+        id: tweets.length + 1,
+        text
+      }
+
+      tweets.push(newTweet);
+      return newTweet;
+    },
+    deleteTweet(_, {id}){
+    const tweet = tweets.find(tweet => tweet.id === id);
+    if(!tweet) return false;
+    tweets = tweets.filter(tweet => tweet.id !== id);
+    return true;
+    }
   },
+  User:{
+    fullName({firstName, lastName}){
+      return `${firstName}${lastName}`;
+    }
+  }
 };
 
 
