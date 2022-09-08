@@ -29,6 +29,7 @@ let tweets =[
     userId: "1"
   }
 ];
+
 const movies = [
   {
     title: "The Awakening",
@@ -71,7 +72,7 @@ const typeDefs = gql`
 
   type Movie {
     title: String
-    id: String
+    id: ID!
   }
 
   type Tweet{
@@ -85,6 +86,7 @@ const typeDefs = gql`
     allMovies: [ Movie ]
     allTweets: [ Tweet!]!
     tweet(id: ID!): Tweet
+    movie(id: ID!): Movie
     ping:String!
   }
 
@@ -102,6 +104,9 @@ const resolvers = {
     allTweets: () => tweets,
     tweet(_, {id}){
       return tweets.find((tweet)=> tweet.id === id);
+    },
+    movie(_, {id}){
+      return movies.find((movie)=> movie.id === id);
     },
     ping(){
       return "pong";
