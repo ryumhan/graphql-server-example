@@ -19,12 +19,14 @@ let users =[
 
 let tweets =[
   {
-  id: "1",
-  text: "first one",
+    id: "1",
+    text: "first one",
+    userId: "2"
   },
   {
     id: "2",
     text: "second one",
+    userId: "1"
   }
 ];
 const movies = [
@@ -97,7 +99,7 @@ const typeDefs = gql`
 const resolvers = {
   Query: {
     allMovies: () => movies,
-    allTweets: ()=> tweets,
+    allTweets: () => tweets,
     tweet(_, {id}){
       return tweets.find((tweet)=> tweet.id === id);
     },
@@ -112,7 +114,8 @@ const resolvers = {
     postTweet(_, {text, userId}){
       const newTweet = {
         id: tweets.length + 1,
-        text
+        text,
+        userId,
       }
 
       tweets.push(newTweet);
@@ -128,6 +131,11 @@ const resolvers = {
   User:{
     fullName({firstName, lastName}){
       return `${firstName}${lastName}`;
+    }
+  },
+  Tweet: {
+    author({userId}){
+      return users.find(user => user.id === userId);
     }
   }
 };
